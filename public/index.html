@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pathfinder Go WASM</title>
+</head>
+<body>
+    <h1>Pathfinder Go WASM</h1>
+    <div>
+        <div style="display: flex;">
+            <div style="flex: 1;">
+            <p>Vitalité: <span id="vitalite"></span></p>
+            <p>CA: <span id="ca"></span></p>
+            <p>Réflexes: <span id="reflexes"></span></p>
+            <p>Volonté: <span id="volonte"></span></p>
+            <p>Vigueur: <span id="vigueur"></span></p>
+            <p>DD: <span id="dd"></span></p>
+            <p>JS: <span id="js"></span></p>
+            <p>JA: <span id="ja"></span></p>
+        </div>
+        <div style="flex: 1;">
+            <p>Arcanes: <span id="arcanes"></span></p>
+            <p>Artisanat: <span id="artisanat"></span></p>
+            <p>Connaissances (bombes alchimiques): <span id="connaissances_bombes_alchimiques"></span></p>
+            <p>Connaissances (elfes): <span id="connaissances_elfes"></span></p>
+            <p>Connaissances (ingénieurie): <span id="connaissances_ingenieurie"></span></p>
+            <p>Société: <span id="societe"></span></p>
+            <p>Occultisme: <span id="occultisme"></span></p>
+            <p>Acrobaties: <span id="acrobaties"></span></p>
+            <p>Discrétion: <span id="discretion"></span></p>
+            <p>Perception: <span id="perception"></span></p>
+        </div>
+        <div style="flex: 1;">
+            <p>Médecine: <span id="medecine"></span></p>
+            <p>Nature: <span id="nature"></span></p>
+            <p>Religion: <span id="religion"></span></p>
+            <p>Représentation: <span id="representation"></span></p>
+            <p>Athlétisme: <span id="athletisme"></span></p>
+            <p>Vol: <span id="vol"></span></p>
+            <p>Survie: <span id="survie"></span></p>
+            <p>Diplomatie: <span id="diplomatie"></span></p>
+                <p>Duperie: <span id="duperie"></span></p>
+            <p>Intimidation: <span id="intimidation"></span></p>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="wasm_exec.js"></script>
+<script>
+    const go = new Go();
+    WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+        go.run(result.instance);
+        updateStats()
+    });
+
+    // Call Go function from JS
+    function updateStats() {
+        document.getElementById('vitalite').innerText = GetStatistique('Vitalité');
+        document.getElementById('ca').innerText = GetStatistique('CA');
+        document.getElementById('reflexes').innerText = GetStatistique('Réflexes');
+        document.getElementById('volonte').innerText = GetStatistique('Volonté');
+        document.getElementById('vigueur').innerText = GetStatistique('Vigueur');
+        document.getElementById('dd').innerText = GetStatistique('DD');
+        document.getElementById('js').innerText = GetStatistique('JS');
+        document.getElementById('ja').innerText = GetStatistique('JA');
+        document.getElementById('acrobaties').innerText = GetStatistique('Acrobaties');
+        document.getElementById('arcanes').innerText = GetStatistique('Arcanes');
+        document.getElementById('artisanat').innerText = GetStatistique('Artisanat');
+        document.getElementById('athletisme').innerText = GetStatistique('Athlétisme');
+        document.getElementById('connaissances_bombes_alchimiques').innerText = GetStatistique('Connaissances (bombes alchimiques)');
+        document.getElementById('connaissances_elfes').innerText = GetStatistique('Connaissances (elfes)');
+        document.getElementById('connaissances_ingenieurie').innerText = GetStatistique('Connaissances (ingénieurie)');
+        document.getElementById('diplomatie').innerText = GetStatistique('Diplomatie');
+        document.getElementById('discretion').innerText = GetStatistique('Discrétion');
+        document.getElementById('duperie').innerText = GetStatistique('Duperie');
+        document.getElementById('intimidation').innerText = GetStatistique('Intimidation');
+        document.getElementById('medecine').innerText = GetStatistique('Médecine');
+        document.getElementById('nature').innerText = GetStatistique('Nature');
+        document.getElementById('occultisme').innerText = GetStatistique('Occultisme');
+        document.getElementById('perception').innerText = GetStatistique('Perception');
+        document.getElementById('religion').innerText = GetStatistique('Religion');
+        document.getElementById('representation').innerText = GetStatistique('Représentation');
+        document.getElementById('societe').innerText = GetStatistique('Société');
+        document.getElementById('survie').innerText = GetStatistique('Survie');
+        document.getElementById('vol').innerText = GetStatistique('Vol');
+    }
+    window.onload = updateStats
+</script>
+</html>
