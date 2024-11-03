@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	fs := http.FileServer(http.Dir("public"))
+	fs := http.FileServer(http.Dir("docs"))
 	http.Handle("/", fs)
 
 	fmt.Println("Starting server on :8080")
